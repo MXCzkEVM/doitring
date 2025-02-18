@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("NEST_PRISMA_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Claimed {
+  hash      String   @id
+  uid       String   @default("")
+  timestamp DateTime
+  token     String
+  tokenId   Int
+  sncode    String
+}
+
+model Element {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  device String
+}
+
+model Step {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  sncode String
+  value  Int
+  kcal   Int
+  km     Int
+}
+
+model HeartRate {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  sncode String
+  value  Int
+}
+
+model Sleep {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  sncode String
+  value  Int
+}
+
+model BloodOxygen {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  sncode String
+  value  Int
+}
+
+model User {
+  owner    String   @id
+  score    Int      @default(0)
+  group    Int?
+  device   String?
+  avatar   String?
+  nickname String?
+  invited  Int  @default(0)
+
+  updateAt DateTime @updatedAt
+
+  bonusInGroup Int @default(0)
+  bonusInToken Int @default(0)
+  pointInBasic Int @default(0)
+  pointInJsons String @default("{}")
+}
+
+model Device {
+  sncode  String @id
+  token   String
+  tokenId Int
+}
+
+model Group {
+  id          Int      @id
+  creator     String
+  description String
+  attributes  String
+  score       Int      @default(0)
+  name        String
+  image       String
+  timestamp   DateTime
+
+  opening Boolean @default(true)
+  lon     Int?
+  lat     Int?
+
+  level   Int @default(1)
+
+  countryCode String?
+  country     String?
+  state       String?
+  city        String?
+  hexagon     String?
+}
+
+model Season {
+  id        Int      @id @default(autoincrement())
+  group     Int
+  timestamp DateTime @default(now())
+  score     Int      @default(0)
+  locked    Decimal  @default(0) @db.Decimal(65, 0)
+  rank      Int      @default(0)
+}
+
+model Member {
+  id       Int     @id @default(autoincrement())
+  address  String
+  season   Int
+  score    Int     @default(0)
+  device   String
+  rank     Int     @default(0)
+  avatar   String?
+  nickname String?
+}
+
+model Order {
+  id       Int     @id
+  variable Int
+  // 0: Unpaid | 1: Paid already
+  payment  Int     @default(0)
+  product  Int
+  inviter  String?
+  rebate   String?
+  secret   String
+}

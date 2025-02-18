@@ -1,0 +1,13 @@
+.cus-tabs {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    width: var(--block-width);
+    height: 100%;
+    left: var(--block-offset);
+    border-radius: 25px;
+    background-color: #234F9B;
+    transition: left 300ms;
+  }
+}
