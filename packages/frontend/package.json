@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node -r dotenv/config aaa.js",
-    "build": "node -r dotenv/config next build",
-    "start": "node -r dotenv/config next start"
+    "dev": "lnv dotenv -r next dev",
+    "build": "lnv dotenv -r next build",
+    "start": "lnv dotenv -r next start"
   },
   "dependencies": {
     "@doitring/analyzkit": "workspace:^",
