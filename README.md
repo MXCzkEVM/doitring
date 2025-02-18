@@ -77,7 +77,7 @@ OWNER_PRIVATE_KEY= "..."
 NETWORK= "geneva"
 ```
 
-Locally, you need to obtain the corresponding environment key by running `npx dotenv-vault@latest keys`, and then fill in the `.env.key`:
+Locally, you need to obtain the corresponding environment key by running `npx dotenv-vault@latest keys`, and then fill in the `.env.key` or `.env`:
 
 ```sh
 DOTENV_KEY = "..."
