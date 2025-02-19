@@ -17,9 +17,6 @@ importers:
       '@eslint-react/eslint-plugin':
         specifier: ^1.5.11
         version: 1.7.1(eslint@9.8.0)(typescript@5.5.4)
-      '@hairy/lnv':
-        specifier: 3.5.0
-        version: 3.5.0
       eslint:
         specifier: ^9.2.0
         version: 9.8.0
@@ -211,6 +208,9 @@ importers:
       '@genapi/swag-fetch-ts':
         specifier: ^1.1.5
         version: 1.1.5
+      '@hairy/lnv':
+        specifier: 3.5.0
+        version: 3.5.0
       '@iconify/json':
         specifier: ^2.2.215
         version: 2.2.232
@@ -368,6 +368,9 @@ importers:
         specifier: ^8.1.0
         version: 8.1.4
     devDependencies:
+      '@hairy/lnv':
+        specifier: 3.5.0
+        version: 3.5.0
       '@nestjs/cli':
         specifier: ^10.3.1
         version: 10.4.2(@swc/cli@0.3.14)(@swc/core@1.7.3)
@@ -447,6 +450,9 @@ importers:
         specifier: 2.x
         version: 2.17.0(typescript@5.5.4)
     devDependencies:
+      '@hairy/lnv':
+        specifier: 3.5.0
+        version: 3.5.0
       '@nomicfoundation/hardhat-toolbox':
         specifier: ^5.0.0
         version: 5.0.0(@nomicfoundation/hardhat-chai-matchers@2.0.7)(@nomicfoundation/hardhat-ethers@3.0.8)(@nomicfoundation/hardhat-ignition-ethers@0.15.5)(@nomicfoundation/hardhat-network-helpers@1.0.12)(@nomicfoundation/hardhat-verify@2.0.9)(@typechain/ethers-v6@0.5.1)(@typechain/hardhat@9.1.0)(@types/chai@4.3.16)(@types/mocha@10.0.7)(@types/node@20.14.13)(chai@4.5.0)(ethers@6.13.2)(hardhat-gas-reporter@1.0.10)(hardhat@2.22.7)(solidity-coverage@0.8.12)(ts-node@10.9.2)(typechain@8.3.2)(typescript@5.5.4)
