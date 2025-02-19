@@ -28,6 +28,7 @@ export default function App({ Component, pageProps }: any) {
   const mounted = useMounted()
 
   useMount(() => {
+    console.log(process.env.NEXT_PUBLIC_NFT_URL)
     if (location.search.includes('debug'))
       new window.VConsole({ theme: 'dark' })
   })
