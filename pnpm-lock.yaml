@@ -18,8 +18,8 @@ importers:
         specifier: ^1.5.11
         version: 1.7.1(eslint@9.8.0)(typescript@5.5.4)
       '@hairy/lnv':
-        specifier: 3.3.0
-        version: 3.3.0
+        specifier: 3.5.0
+        version: 3.5.0
       eslint:
         specifier: ^9.2.0
         version: 9.8.0
@@ -3336,8 +3336,8 @@ packages:
       lodash: 4.17.21
     dev: false
 
-  /@hairy/lnv@3.3.0:
-    resolution: {integrity: sha512-4fp3D8ZDGvaAbyr6gjxYmlC7SCW7VDW3GAQQUZMhwhNr+q6p2dg+xZRI+hsPgPIE/JgXbOZCkAvEXBcalXibtg==}
+  /@hairy/lnv@3.5.0:
+    resolution: {integrity: sha512-ygukViSVrlcS5M8TvbgMs6vRnom5AXQlLlfu720n/2y5yi1wqvl5BCVIrVPW9C7VsMYjp7qZ5ADEG57f2Wk/GQ==}
     hasBin: true
     dependencies:
       '@manypkg/get-packages': 1.1.3
