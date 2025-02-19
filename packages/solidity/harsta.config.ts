@@ -1,5 +1,6 @@
 import { Currency, Deploy, HarstaRuntimeEnvironment, defineConfig } from 'harsta'
 import { Wallet } from 'ethers'
+
 import 'dotenv/config'
 
 const deploy: Deploy = {
