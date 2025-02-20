@@ -11,7 +11,6 @@ import {
 async function bootstrap() {
   const { NEST_SERVER_PORT, NODE_ENV } = process.env
   const app = await NestFactory.create(AppModule)
-
   if (NODE_ENV === 'development')
     withEthersHttpProxy({ host: '127.0.0.1', port: 7890 })
   withNestjsRepairDecimal(app)

@@ -3,6 +3,7 @@ import { Wallet } from 'ethers'
 
 import 'dotenv/config'
 
+console.log(process.env.NETWORK)
 const deploy: Deploy = {
   accounts: [
     process.env.OWNER_PRIVATE_KEY || Wallet.createRandom().privateKey,

@@ -5,10 +5,17 @@
   "description": "Nest TypeScript starter repository",
   "license": "MIT",
   "scripts": {
-    "build:prisma": "prisma db push && prisma generate",
-    "build": "nest build",
-    "dev": "pnpm build:prisma && nest start --watch",
-    "prod": "pnpm build:prisma && pnpm build && node dist/main"
+    "dev": "pnpm build:prisma && pnpm start:watch",
+    "start": "pnpm build:prisma && pnpm build:nest && pnpm start:dist",
+
+    "build:prisma": "pnpm prisma:push && pnpm prisma:generate",
+    "build:nest": "lnv vault -d -r 'nest build'",
+
+    "start:watch": "lnv vault -d -r 'nest start --watch'",
+    "start:dist": "lnv vault -d -r 'node dist/main'",
+
+    "prisma:push": "lnv vault -d -r 'prisma db push'",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@doitring/analyzkit": "^1.0.1",
@@ -45,7 +52,7 @@
     "zx": "^8.1.0"
   },
   "devDependencies": {
-    "@hairy/lnv": "5.0.0",
+    "@hairy/lnv": "5.2.0",
     "@nestjs/cli": "^10.3.1",
     "@nestjs/schematics": "^10.1.0",
     "@nestjs/testing": "^10.3.2",

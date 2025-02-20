@@ -35,18 +35,19 @@
     "start": "esno main.ts",
     "build": "harsta compile --output dist --clean",
 
-    "deploy:devnet": "harsta deploy --verify --network hardhat",
+    "deploy:devnet": "lnv vault -d -r 'harsta deploy --verify --network hardhat'",
 
-    "deploy:testnet": "harsta deploy --verify --network geneva",
-    "deploy:mainnet": "harsta deploy --verify --network moonchain",
+    "deploy:testnet": "lnv vault -d -r 'harsta deploy --verify --network geneva'",
 
-    "verify:testnet": "harsta verify --network geneva --target",
-    "verify:mainnet": "harsta verify --network moonchain --target",
+    "deploy:mainnet": "lnv vault -d -r 'harsta deploy --verify --network moonchain'",
 
-    "test": "harsta test --network hardhat",
-    "test:testnet": "harsta test --network geneva",
-    "test:fork:testnet": "harsta test --network hardhat --fork geneva",
-    "test:fork:mainnet": "harsta test --network hardhat --fork moonchain"
+    "verify:testnet": "lnv vault -d -r 'harsta verify --network geneva --target'",
+    "verify:mainnet": "lnv vault -d -r 'harsta verify --network moonchain --target'",
+
+    "test:hardhat": "lnv vault -d -r 'harsta test --network hardhat'",
+    "test:testnet": "lnv vault -d -r 'harsta test --network geneva'",
+    "test:fork:testnet": "lnv vault -d -r 'harsta test --network hardhat --fork geneva'",
+    "test:fork:mainnet": "lnv vault -d -r 'harsta test --network hardhat --fork moonchain'"
   },
   "dependencies": {
     "@harsta/client": "workspace:^",
@@ -57,7 +58,7 @@
     "viem": "2.x"
   },
   "devDependencies": {
-    "@hairy/lnv": "5.0.0",
+    "@hairy/lnv": "5.2.0",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@types/react": "^18.3.3",
     "dotenv": "^16.4.5",

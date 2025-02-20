@@ -6,9 +6,11 @@
     "dev:server": "npm -C packages/server run dev",
 
     "start:server": "npm -C packages/server run start",
-    "start:client": "npm -C packages/frontend run start",
+    "start:client": "npm -C packages/frontend run bands",
 
     "build:client": "npm -C packages/frontend run build",
+    "build:server": "npm -C packages/server run build",
+
     "build:genapi": "npm -C packages/frontend genapi",
     "build:analys": "npm -C packages/analyzkit run build",
     "build:sols": "npm -C packages/solidity run build",

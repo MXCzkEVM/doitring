@@ -38,12 +38,10 @@ export function withNestjsCors(app: INestApplication) {
 
 export function withNestjsListen(app: INestApplication, port: string | number) {
   const logger = new Logger()
-  const { NODE_ENV } = process.env
 
   app.listen(port).then(() => {
     logger.log(`${bold('Listening on:')} ${gray(`http://127.0.0.1:${port}`)}`)
     logger.log(`${bold('Swaggier URL:')} ${gray(`http://127.0.0.1:${port}/swagger/website`)}`)
-    logger.log(`${bold('Environments:')} ${gray(ENV_MODE_PATHS[NODE_ENV])}`)
   })
 }
 
