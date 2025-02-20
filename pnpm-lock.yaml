@@ -209,8 +209,8 @@ importers:
         specifier: ^1.1.5
         version: 1.1.5
       '@hairy/lnv':
-        specifier: 3.6.0
-        version: 3.6.0
+        specifier: 5.0.0
+        version: 5.0.0
       '@iconify/json':
         specifier: ^2.2.215
         version: 2.2.232
@@ -369,8 +369,8 @@ importers:
         version: 8.1.4
     devDependencies:
       '@hairy/lnv':
-        specifier: 3.6.0
-        version: 3.6.0
+        specifier: 5.0.0
+        version: 5.0.0
       '@nestjs/cli':
         specifier: ^10.3.1
         version: 10.4.2(@swc/cli@0.3.14)(@swc/core@1.7.3)
@@ -451,8 +451,8 @@ importers:
         version: 2.17.0(typescript@5.5.4)
     devDependencies:
       '@hairy/lnv':
-        specifier: 3.6.0
-        version: 3.6.0
+        specifier: 5.0.0
+        version: 5.0.0
       '@nomicfoundation/hardhat-toolbox':
         specifier: ^5.0.0
         version: 5.0.0(@nomicfoundation/hardhat-chai-matchers@2.0.7)(@nomicfoundation/hardhat-ethers@3.0.8)(@nomicfoundation/hardhat-ignition-ethers@0.15.5)(@nomicfoundation/hardhat-network-helpers@1.0.12)(@nomicfoundation/hardhat-verify@2.0.9)(@typechain/ethers-v6@0.5.1)(@typechain/hardhat@9.1.0)(@types/chai@4.3.16)(@types/mocha@10.0.7)(@types/node@20.14.13)(chai@4.5.0)(ethers@6.13.2)(hardhat-gas-reporter@1.0.10)(hardhat@2.22.7)(solidity-coverage@0.8.12)(ts-node@10.9.2)(typechain@8.3.2)(typescript@5.5.4)
@@ -3342,8 +3342,8 @@ packages:
       lodash: 4.17.21
     dev: false
 
-  /@hairy/lnv@3.6.0:
-    resolution: {integrity: sha512-Eb12eZG64zyiiJbzUmpNQWfmIAwCuXOKd4PJXxHJcUfDyU0aJQtRK8gYMw8Tc2YwNI53qtFS/05sirb8gJmLxg==}
+  /@hairy/lnv@5.0.0:
+    resolution: {integrity: sha512-8GmnFFVu76ceA0JWhb80Q7WrM3yG5Qaz7ovlJE4uqR2n3NHlrk4XLqj1rVchTiT7YfRLWrPTqEaeuHH/8fBlGg==}
     hasBin: true
     dependencies:
       '@manypkg/get-packages': 1.1.3
@@ -7228,6 +7228,7 @@ packages:
     resolution: {integrity: sha512-TrXNoJLkysIl8SBc4u9bNnyoFYoILpCcFJcLyWCccb/QSUmaVKdvY0m5diZqc3btExsapcMbaw/s/wh9Sf1pJw==}
     dependencies:
       crypto-js: 4.2.0
+    dev: false
 
   /@use-gesture/core@10.3.0:
     resolution: {integrity: sha512-rh+6MND31zfHcy9VU3dOZCqGY511lvGcfyJenN4cWZe0u1BH6brBpBddLVXhF2r4BMqWbvxfsbL7D287thJU2A==}
@@ -9640,6 +9641,7 @@ packages:
 
   /crypto-js@4.2.0:
     resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
+    dev: false
 
   /css-in-js-utils@3.1.0:
     resolution: {integrity: sha512-fJAcud6B3rRu+KHYk+Bwf+WFL2MDCJJ1XG9x137tJQ0xYxor7XziQtuGFbWNdqrvF4Tk26O3H73nfVqXt/fW1A==}
@@ -12387,7 +12389,7 @@ packages:
       tsup: 8.2.4(jiti@2.4.2)(typescript@5.5.4)
       tunnel: 0.0.6
       typechain: 8.3.2(typescript@5.5.4)
-      unstorage: 1.10.2(@upstash/redis@1.34.0)
+      unstorage: 1.10.2(idb-keyval@6.2.1)
       vitest: 2.1.9(@types/node@20.14.13)
       wagmi: 2.12.5(@tanstack/react-query@5.51.15)(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.4)(react@18.3.1)(typescript@5.5.4)(viem@2.17.0)
       yargs: 17.7.2
@@ -18991,6 +18993,7 @@ packages:
       ufo: 1.5.4
     transitivePeerDependencies:
       - uWebSockets.js
+    dev: false
 
   /unstorage@1.10.2(idb-keyval@6.2.1):
     resolution: {integrity: sha512-cULBcwDqrS8UhlIysUJs2Dk0Mmt8h7B0E6mtR+relW9nZvsf/u4SkAYyNliPiPW7XtFNb5u3IUMkxGxFTTRTgQ==}

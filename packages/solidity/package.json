@@ -57,7 +57,7 @@
     "viem": "2.x"
   },
   "devDependencies": {
-    "@hairy/lnv": "3.6.0",
+    "@hairy/lnv": "5.0.0",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@types/react": "^18.3.3",
     "dotenv": "^16.4.5",

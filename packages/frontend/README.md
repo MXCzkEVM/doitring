@@ -2,7 +2,6 @@
 
 leverages the capabilities of [Rainbowkit 2](https://beta.rainbowkit.com/guides/rainbowkit-wagmi-v2) and [Wagmi 2](https://github.com/wevm/wagmi) for seamless wallet integration and authentication. The kit also includes Ethers 5 for interacting with the Ethereum blockchain.
 
-
 ## Features
 
 - ⚡️ Built with speed using [Next.js 14](https://nextjs.org/), [React](https://react.docschina.org/), [Rainbowkit 2](https://beta.rainbowkit.com/guides/rainbowkit-wagmi-v2), [Wagmi 2](https://github.com/wevm/wagmi), and [Ethers 5](https://github.com/ethers-io/ethers.js)

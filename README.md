@@ -83,6 +83,6 @@ Locally, you need to obtain the corresponding environment key by running `npx do
 DOTENV_KEY = "..."
 ```
 
-After that, simply rerun `pnpm install`, which will load the environment variables via `lnv dotenv -r`, covering all projects.
+After that, simply rerun `pnpm install`, which will load the environment variables via `lnv vault -d -r`, covering all projects.
 
 If you need to deploy on `vercel`, you must set the corresponding environment `key` using `npx vercel@latest env add DOTENV_KEY`.
