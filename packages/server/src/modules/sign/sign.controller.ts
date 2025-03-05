@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Query } from '@nestjs/common'
 import { ApiExtraModels, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { defaultAddresses as addresses, defaultChain as chain, contracts } from '@harsta/client'
+import { defaultAddresses as addresses, chain, contracts } from '@harsta/client'
 import { AbiCoder, getAddress, keccak256, parseEther, solidityPackedKeccak256, toBeArray } from 'ethers'
 import dayjs from 'dayjs'
 import BigNumber from 'bignumber.js'

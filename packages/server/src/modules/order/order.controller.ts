@@ -3,7 +3,7 @@ import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger'
 import WooCommerceRestApi, { OrdersMainParams } from 'woocommerce-rest-ts-api'
 import { Stripe } from 'stripe'
 import { parseEther } from 'ethers'
-import { defaultAddresses as addresses, contracts, defaultChain } from '@harsta/client'
+import { defaultAddresses as addresses, chain, contracts } from '@harsta/client'
 import { gray } from 'chalk'
 import { EthersService, PrismaService } from '../common'
 import { loop } from '../../utils'
@@ -42,7 +42,7 @@ export class OrderController {
   @ApiResponse({ type: Order })
   async create(@Body() body: OrderCreateBody) {
     const address = {
-      first_name: defaultChain.id === 5167004 ? `Test order` : body.name,
+      first_name: chain.id === 5167004 ? `Test order` : body.name,
       address_1: body.address,
       country: body.region,
       phone: body.phone,

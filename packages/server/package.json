@@ -9,12 +9,12 @@
     "start": "pnpm build:prisma && pnpm build:nest && pnpm start:dist",
 
     "build:prisma": "pnpm prisma:push && pnpm prisma:generate",
-    "build:nest": "lnv vault -d -r 'nest build'",
+    "build:nest": "nest build",
 
-    "start:watch": "lnv vault -d -r 'nest start --watch'",
-    "start:dist": "lnv vault -d -r 'node dist/main'",
+    "start:watch": "lnv vault -d -- nest start --watch",
+    "start:dist": "lnv vault -d -- node dist/main",
 
-    "prisma:push": "lnv vault -d -r 'prisma db push'",
+    "prisma:push": "lnv vault -d -- prisma db push",
     "prisma:generate": "prisma generate"
   },
   "dependencies": {

@@ -1,4 +1,3 @@
-/* eslint-disable node/prefer-global/buffer */
 import { compress as _compress, decompress as _decompress } from 'brotli-wasm'
 
 export function compress(str: string) {

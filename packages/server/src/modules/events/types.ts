@@ -1,10 +1,7 @@
-import { BindedEvent, ClaimedEvent, RegisteredEvent } from '@harsta/client/dist/events/DoitRingDevice'
-import { GroupCreatedEvent, GroupJoinedEvent } from '@harsta/client/dist/events/DoitRingFriend'
-import { StorageUpdatedEvent } from '@harsta/client/dist/events/Storage'
-import {
-  TypedContractEvent,
-  TypedEventLog,
-} from '@harsta/client/dist/typechains/common'
+import { TypedContractEvent, TypedEventLog } from '@harsta/client/dist/_typechain-contracts/common'
+import { BindedEvent, ClaimedEvent, RegisteredEvent } from '@harsta/client/dist/_typechain-contracts/contracts/DoitRingDevice'
+import { GroupCreatedEvent, GroupJoinedEvent } from '@harsta/client/dist/_typechain-contracts/contracts/DoitRingFriend'
+import { StorageUpdatedEvent } from '@harsta/client/dist/_typechain-contracts/contracts/Storage'
 
 export type TypedContrEvent<
   InputTuple extends Array<any> = any,

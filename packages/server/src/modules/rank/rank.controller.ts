@@ -1,5 +1,5 @@
-import { Controller, Get, Param, Query } from '@nestjs/common'
-import { ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { Controller, Get, Query } from '@nestjs/common'
+import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { PrismaService } from '../common'
 import { UsersResponse } from '../user/dtos'
 

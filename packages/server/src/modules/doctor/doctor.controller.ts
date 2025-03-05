@@ -1,7 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common'
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { verifyMessage } from 'ethers'
-import dayjs from 'dayjs'
 import { ConfigService } from '@nestjs/config'
 import { AgentMessageBody, AgentMessageResponse } from '../agent/dtos'
 import { generateMessage, parseMessage } from '../agent/utils'

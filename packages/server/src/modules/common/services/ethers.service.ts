@@ -6,12 +6,12 @@ import { JsonRpcProvider, Wallet } from 'ethers'
 @Injectable()
 export class EthersService {
   provider: JsonRpcProvider
-  DoitRingStaked: import('@harsta/client/dist/typechains').DoitRingStaked
-  DoitRingFriend: import('@harsta/client/dist/typechains').DoitRingFriend
-  DoitRingDevice: import('@harsta/client/dist/typechains').DoitRingDevice
-  Storage: import('@harsta/client/dist/typechains').Storage
-  Savings: import('@harsta/client/dist/typechains').Savings
-  Health: import('@harsta/client/dist/typechains').Health
+  DoitRingStaked: import('@harsta/client/dist/_typechain-contracts').DoitRingStaked
+  DoitRingFriend: import('@harsta/client/dist/_typechain-contracts').DoitRingFriend
+  DoitRingDevice: import('@harsta/client/dist/_typechain-contracts').DoitRingDevice
+  Storage: import('@harsta/client/dist/_typechain-contracts').Storage
+  Savings: import('@harsta/client/dist/_typechain-contracts').Savings
+  Health: import('@harsta/client/dist/_typechain-contracts').Health
   owner: Wallet
   verifier: Wallet
 

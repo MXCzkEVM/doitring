@@ -2,7 +2,7 @@ import { Body, Controller, Logger, Post } from '@nestjs/common'
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { defaultAddresses as addresses, signer } from '@harsta/client'
 import { bold, gray, reset } from 'chalk'
-import { JsonRpcSigner, verifyMessage } from 'ethers'
+import { verifyMessage } from 'ethers'
 import {
   AgentMessageBody,
   AgentMessageResponse,
