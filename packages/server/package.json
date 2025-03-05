@@ -52,7 +52,7 @@
     "zx": "^8.1.0"
   },
   "devDependencies": {
-    "@hairy/lnv": "5.2.0",
+    "@hairy/lnv": "5.5.0",
     "@nestjs/cli": "^10.3.1",
     "@nestjs/schematics": "^10.1.0",
     "@nestjs/testing": "^10.3.2",
