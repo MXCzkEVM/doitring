@@ -1,5 +1,6 @@
 import { proxy } from 'valtio'
-import { Instances } from '@harsta/client'
+
+import { DoitRingDevice } from '@harsta/client/typechain'
 
 export interface Miner {
   token: string
@@ -19,7 +20,7 @@ export interface Reward {
 
 export interface Claimed {
   timestamp: number
-  rewards: Instances.DoitRingDevice.RewardStructOutput[]
+  rewards: DoitRingDevice.RewardStructOutput[]
   tokenId: number
   token: string
   hash: string

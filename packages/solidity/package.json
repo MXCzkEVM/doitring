@@ -5,28 +5,34 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./wagmi": {
-      "type": "./dist/wagmi/index.d.ts",
-      "import": "./dist/wagmi/index.js",
+      "types": "./dist/wagmi/index.d.ts",
+      "import": "./dist/wagmi/index.mjs",
       "require": "./dist/wagmi/index.js"
     },
     "./chains": {
-      "type": "./dist/chains/index.d.ts",
-      "import": "./dist/chains/index.js",
+      "types": "./dist/chains/index.d.ts",
+      "import": "./dist/chains/index.mjs",
       "require": "./dist/chains/index.js"
     },
     "./contracts": {
-      "type": "./dist/contracts/index.d.ts",
-      "import": "./dist/contracts/index.js",
+      "types": "./dist/contracts/index.d.ts",
+      "import": "./dist/contracts/index.mjs",
       "require": "./dist/contracts/index.js"
     },
-    "./interfaces": {
-      "type": "./dist/interfaces/index.d.ts",
-      "import": "./dist/interfaces/index.js",
-      "require": "./dist/interfaces/index.js"
+    "./factories": {
+      "types": "./dist/factories/index.d.ts",
+      "import": "./dist/factories/index.mjs",
+      "require": "./dist/factories/index.js"
+    },
+    "./typechain/*": "./dist/_typechain-contracts/*",
+    "./typechain": {
+      "types": "./dist/_typechain-contracts/index.d.ts",
+      "import": "./dist/_typechain-contracts/index.mjs",
+      "require": "./dist/_typechain-contracts/index.js"
     }
   },
   "main": "./dist/index.js",
