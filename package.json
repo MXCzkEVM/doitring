@@ -18,6 +18,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
 
+    "start:testnet": "npm run start:server",
+    "start:mainnet": "npm run start:server",
+
     "postinstall": "nr build:sols & nr build:analys"
   },
   "devDependencies": {
