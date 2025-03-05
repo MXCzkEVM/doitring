@@ -1,15 +1,13 @@
 import { cover } from '@hairy/format'
 import { Button } from 'antd'
-import { defaultChain } from '@harsta/client'
+import { chain } from '@harsta/client'
 import { copy } from '@/utils'
-
-const explorer = defaultChain.blockExplorers.default.url
 
 export function TransactionHash(props: { hash: string, link?: boolean }) {
   return (
     props.link
       ? (
-          <Button type="text" size="small" onClick={() => window.open(`${explorer}/tx/${props.hash}`)}>
+          <Button type="text" size="small" onClick={() => window.open(`${chain.blockExplorers.default.url}/tx/${props.hash}`)}>
             <span>{cover(props.hash, [4, 3, 4])}</span>
             <div className="i-mdi-invoice-text-arrow-right" />
           </Button>
