@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "  lnv vault -d -r next dev",
-    "build": "lnv vault -d -r next build",
-    "start": "lnv vault -d -r next start",
+    "dev": "  lnv vault -d -- next dev",
+    "build": "lnv vault -d -- next build",
+    "start": "lnv vault -d -- next start",
 
     "bands": "pnpm build && pnpm start"
   },

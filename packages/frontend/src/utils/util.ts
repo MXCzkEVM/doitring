@@ -72,3 +72,9 @@ export function riposte<T>(...args: [cond: boolean, value: T][]): T {
   }
   return undefined as T
 }
+
+export function isMobile() {
+  return typeof window !== 'undefined'
+    && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+    || window.axs !== undefined
+}
