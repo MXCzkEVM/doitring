@@ -1,7 +1,7 @@
 /* eslint-disable ts/ban-ts-comment */
 import { useSnapshot } from 'valtio'
 import { useRef } from 'react'
-import { asyncFnCallCache, useProxyAsyncFn } from '../useProxyAsyncFn'
+import { useProxyAsyncFn } from '../useProxyAsyncFn'
 import { Commands, Resolves } from './config'
 import { useWriteWithResponse } from './hooks'
 import { whenever } from '@/utils'
@@ -23,7 +23,7 @@ export function useProxyBluetoothCommand<Command extends CommandsKeys>(
   const writeWithResponse = useWriteWithResponse()
   type AsFnCallback = typeof Commands[Command]
   type AsFnReturn = Promise<ReturnType<typeof Resolves[Command]>>
-  const snapshot = useSnapshot(asyncFnCallCache)
+  const snapshot = useSnapshot(useProxyAsyncFn.caches)
 
   const promise = useRef<Promise<any>>()
   const locked = Object.values(snapshot).find(state => state.loading)

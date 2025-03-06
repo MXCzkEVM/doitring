@@ -8,15 +8,15 @@ interface AsyncFnCall<V = any> {
   error?: any
 }
 
-export const asyncFnCallCache = proxy<Record<string, AsyncFnCall>>({})
+export const caches = proxy<Record<string, AsyncFnCall>>({})
 
 export function useProxyAsyncFn<T extends FunctionReturningPromise>(key: string, fn: T) {
-  const snapshot = useSnapshot(asyncFnCallCache)
+  const snapshot = useSnapshot(caches)
   if (!snapshot[key])
-    asyncFnCallCache[key] = { loading: false, value: undefined }
+    caches[key] = { loading: false, value: undefined }
 
   function run(...args: any[]) {
-    const cache = asyncFnCallCache[key]
+    const cache = caches[key]
     if (cache.promise)
       return cache.promise
     const result = fn(...args)
@@ -36,5 +36,7 @@ export function useProxyAsyncFn<T extends FunctionReturningPromise>(key: string,
     return cache.promise
   }
 
-  return [asyncFnCallCache[key] as AsyncFnCall<PromiseType<ReturnType<T>>>, run as T] as const
+  return [caches[key] as AsyncFnCall<PromiseType<ReturnType<T>>>, run as T] as const
 }
+
+useProxyAsyncFn.caches = caches
