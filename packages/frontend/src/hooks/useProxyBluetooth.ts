@@ -1,10 +1,16 @@
 import { storeToState } from '@hairy/react-utils'
-import { useSnapshot } from 'valtio'
 import mitt from 'mitt'
+import { useMemo } from 'react'
 import { storeToStates } from './storeToStates'
 import { store } from '@/store'
 
 export const event = mitt()
+export type Options = RequestDeviceOptions & {
+  /**
+   * Is the binding relationship between the identifier and NFT correct (such as tokenId)
+   */
+  uid?: string
+}
 
 export function useProxyBluetooth() {
   const {
@@ -15,17 +21,10 @@ export function useProxyBluetooth() {
   } = storeToStates(store.bluetooth)
 
   const [miner] = storeToState(store.miner, 'miner')
-
+  const defaultOptions = { filters: [{ name: miner?.sncode }] }
   const BluetoothServiceUUID = '0000fff0-0000-1000-8000-00805f9b34fb'
   const BluetoothCharacteristicUUID = '0000fff6-0000-1000-8000-00805f9b34fb'
   const BluetoothCharacteristicNotificationUUID = '0000fff7-0000-1000-8000-00805f9b34fb'
-
-  type Options = RequestDeviceOptions & {
-    /**
-     * Is the binding relationship between the identifier and NFT correct (such as tokenId)
-     */
-    uid?: string
-  }
 
   function onCharacteristicResolved(event: any) {
     const dataView = event.target?.value
@@ -33,7 +32,7 @@ export function useProxyBluetooth() {
     emitter.emit(`characteristicvaluechanged:${data[0]}`, event)
   }
 
-  async function request(options: Options, setter = true) {
+  async function request(options: Options = defaultOptions, setter = true) {
     const uid = Reflect.get(bluetooth || {}, 'tokenId')
     const tokenId = miner?.tokenId
 
@@ -100,6 +99,12 @@ export function useProxyBluetooth() {
     }
   }
 
+  const isIncorrectDevice = useMemo(
+    () => bluetooth?.name !== miner?.sncode,
+    [miner, bluetooth],
+  )
+  const connected = bluetooth && miner && !isIncorrectDevice
+
   function clear() {
     setBluetooth(undefined)
     setCharacteristic(undefined)
@@ -109,6 +114,7 @@ export function useProxyBluetooth() {
     {
       value: { bluetooth },
       loading,
+      connected,
     },
     request,
     clear,

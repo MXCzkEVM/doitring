@@ -1,65 +1,59 @@
-/* eslint-disable ts/no-use-before-define */
 import { Button } from 'antd'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
-import { storeToState, useAsyncCallback, useWhenever } from '@hairy/react-utils'
+import { storeToState, useAsyncCallback } from '@hairy/react-utils'
 import { useAccount } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { useOverlayInject } from '@overlastic/react'
 
 import { contracts } from '@harsta/client'
-import { useAsyncFn, useMount } from 'react-use'
 import { compress, formatEtherByFormat, waitForProxyTransaction } from '@/utils'
 import { store } from '@/store'
 import { useProxyBluetooth, useProxyBluetoothCommand, useProxyMinerDetail } from '@/hooks'
-import { Card, EpochRewardDialog, PairRingDrawer, SynchronizedDialog, SyncingDialog } from '@/components'
-import { getSignClaim, getSignClaimIntel, postSignClaimCount } from '@/api'
+import { Card, EpochRewardDialog, SynchronizedDialog, SyncingDialog } from '@/components'
+import { getSignClaim, postSignClaimCount } from '@/api'
+import { useRequestIntel } from '@/hooks/useRequestIntel'
 
 export function ClaimSteps() {
   const { address } = useAccount()
+  const { t } = useTranslation()
+
   const [miner] = storeToState(store.miner, 'miner')
   const [mints, setMints] = storeToState(store.config, 'mints')
+
   const [{ value: detail }, fetchMinerDetail] = useProxyMinerDetail()
-  const [{ value: { bluetooth } }] = useProxyBluetooth()
+  const [{ value: intel }, reloadIntel] = useRequestIntel()
+  const [{ connected }, fetchBluetooth] = useProxyBluetooth()
+
   const openEpochRewardDialog = useOverlayInject(EpochRewardDialog)
   const openSynchronizedDialog = useOverlayInject(SynchronizedDialog)
-  const openPairRingDrawer = useOverlayInject(PairRingDrawer)
   const openSyncingDialog = useOverlayInject<any, void>(SyncingDialog)
-  const { t } = useTranslation()
+
+  const DoitRingDevice = contracts.DoitRingDevice.resolve()
 
   const fetchReadBloodOxygens = useProxyBluetoothCommand('readBloodOxygens', { until: true })[1]
   const fetchReadHeartRates = useProxyBluetoothCommand('readHeartRates', { until: true })[1]
   const fetchReadSleep = useProxyBluetoothCommand('readSleep', { until: true })[1]
   const fetchReadSteps = useProxyBluetoothCommand('readSteps', { until: true })[1]
 
-  const isIncorrectDevice = useMemo(
-    () => bluetooth?.name !== miner?.sncode,
-    [miner, bluetooth],
-  )
-  const isConnected = bluetooth && miner && !isIncorrectDevice
-
-  async function fetchDataPacket() {
-    if (!isConnected) {
-      await openPairRingDrawer()
-      return
+  async function requestPacket() {
+    if (!connected) {
+      await fetchBluetooth()
+      return { json: null, data: null }
     }
-    const sleeps = await fetchReadSleep()
-      .then(arr => arrayFilterDate(arr, detail.sleeps.at(-1)?.date))
-    const steps = await fetchReadSteps()
-      .then(arr => arrayFilterDate(arr, detail.steps.at(-1)?.date))
-    const rates = await fetchReadHeartRates()
-      .then(arr => arrayFilterDate(arr, detail.rates.at(-1)?.date))
-    const oxygens = await fetchReadBloodOxygens()
-      .then(arr => arrayFilterDate(arr, detail.oxygens.at(-1)?.date))
+    const sleeps = await fetchReadSleep().then(withDateSlic(detail.sleeps.at(-1)?.date))
+    const steps = await fetchReadSteps().then(withDateSlic(detail.steps.at(-1)?.date))
+    const rates = await fetchReadHeartRates().then(withDateSlic(detail.rates.at(-1)?.date))
+    const oxygens = await fetchReadBloodOxygens().then(withDateSlic(detail.oxygens.at(-1)?.date))
 
     const data = { sleeps, steps, rates, oxygens }
     const content = JSON.stringify(data)
 
-    console.log('content --- ', {
-      sleeps: sleeps.map(itemWithTime),
-      steps: steps.map(itemWithTime),
-      rates: rates.map(itemWithTime),
-      oxygens: oxygens.map(itemWithTime),
+    console.log('[debug] content --- ', {
+      sleeps: sleeps.map(withItemTime),
+      steps: steps.map(withItemTime),
+      rates: rates.map(withItemTime),
+      oxygens: oxygens.map(withItemTime),
     })
 
     const mep3355 = {
@@ -79,7 +73,7 @@ export function ClaimSteps() {
       ],
     }
 
-    console.log('data --- ', mep3355)
+    console.log('[debug] data --- ', mep3355)
 
     return {
       json: JSON.stringify(mep3355),
@@ -87,25 +81,15 @@ export function ClaimSteps() {
     }
   }
 
-  async function deleteDataPacket() {
-    // await writeRestore()
-    // await writeTime(dayjs().format())
-
-    // await deleteReadBloodOxygens()
-    // await deleteReadHeartRates()
-    // await deleteReadSleep('pos')
-    // await deleteReadSteps()
-  }
-
-  async function _onSyncClaim() {
+  async function requestSync() {
     if (!address || !miner)
       return
-    const DoitRingDevice = contracts.DoitRingDevice.resolve()
 
-    const result = await fetchDataPacket()
-    if (!result)
+    const { json } = await requestPacket()
+
+    if (!json)
       return
-    const { json } = result
+
     const signatured = await getSignClaim({ sender: address })
 
     if (!signatured)
@@ -126,8 +110,8 @@ export function ClaimSteps() {
     await Promise.all([
       postSignClaimCount({ uid: signatured.uid }),
       fetchMinerDetail(miner),
-      deleteDataPacket(),
     ])
+
     await reloadIntel()
     setMints(mints + 1)
 
@@ -137,19 +121,13 @@ export function ClaimSteps() {
     }
   }
 
-  const [{ value: intel }, reloadIntel] = useAsyncFn(async () => {
-    if (!address)
-      return
-    return getSignClaimIntel({ sender: address })
-  }, [address])
-
   const [loadingByClaim, onSyncClaim] = useAsyncCallback(async () => {
-    if (!isConnected) {
-      await openPairRingDrawer()
+    if (!connected) {
+      await fetchBluetooth()
       return
     }
     const instance = openSyncingDialog()
-    const promise = _onSyncClaim()
+    const promise = requestSync()
     const trans = await promise.finally(instance.resolve)
 
     await new Promise(resolve => setTimeout(resolve, 500))
@@ -161,10 +139,6 @@ export function ClaimSteps() {
     })
   })
 
-  useMount(() => {
-
-  })
-  useWhenever(address, reloadIntel, { immediate: true })
   return (
     <>
       <div className="mt-24px mb-10px flex items-center gap-5px">
@@ -221,12 +195,14 @@ export function ClaimSteps() {
   )
 }
 
-async function arrayFilterDate<T>(array: T[], date?: number) {
-  if (!date)
-    return array
-  return array.filter((item: any) => item.date > (date || 0)) as T[]
+function withDateSlic<T>(date?: number) {
+  return (array: T[]) => {
+    return date
+      ? array.filter((item: any) => item.date > (date || 0)) as T[]
+      : array
+  }
 }
 
-function itemWithTime<T extends Record<string, any>>(item: T): T & { time: string } {
+function withItemTime<T extends Record<string, any>>(item: T): T & { time: string } {
   return { ...item, time: dayjs.unix(item.date).format('YYYY-MM-DD HH:mm:ss') }
 }

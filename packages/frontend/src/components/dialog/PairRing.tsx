@@ -12,9 +12,7 @@ export function PairRingDrawer() {
   const { t } = useTranslation()
 
   async function pair() {
-    await fetchBluetooth({
-      filters: [{ name: miner?.sncode }],
-    })
+    await fetchBluetooth({ filters: [{ name: miner?.sncode }] })
     resolve()
   }
   return (

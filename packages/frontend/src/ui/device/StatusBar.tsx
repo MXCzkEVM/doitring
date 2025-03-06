@@ -10,7 +10,7 @@ import { BonusProgress } from './BonusProgress'
 import IconRing from '@/assets/images/ring-icon.png'
 import { useProxyBluetooth, useProxyBluetoothCommand, useProxyUser } from '@/hooks'
 import { store } from '@/store'
-import { Card, PairRingDrawer, Trans } from '@/components'
+import { Card, Trans } from '@/components'
 
 export function StatusBar() {
   const [miner] = storeToState(store.miner, 'miner')
@@ -91,9 +91,8 @@ export function StatusBar() {
 }
 
 function QuantityOfElectricity() {
-  const openPairRingDrawer = useOverlayInject(PairRingDrawer)
   const [{ value: level }, fetchLevel] = useProxyBluetoothCommand('readLevel')
-  const [{ value: { bluetooth } }] = useProxyBluetooth()
+  const [{ value: { bluetooth } }, fetchBluetooth] = useProxyBluetooth()
   const [{}, writeTime] = useProxyBluetoothCommand('writeTime')
 
   useWhenever(bluetooth, async () => {
@@ -102,7 +101,7 @@ function QuantityOfElectricity() {
   }, { immediate: true })
 
   return (
-    <div className="h-full flex-center" onClick={() => !bluetooth && openPairRingDrawer()}>
+    <div className="h-full flex-center" onClick={() => !bluetooth && fetchBluetooth()}>
       <Card className="flex-1 max-w-120px h-120px flex-center bg-[#1D1D1D]">
         <img className="w-84px" src={IconRing.src} />
       </Card>
