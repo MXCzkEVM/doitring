@@ -1,26 +1,21 @@
 {
   "name": "doitring-monorepo-project",
   "version": "1.0.0",
+  "packageManager": "pnpm@10.6.5",
   "scripts": {
     "dev:client": "npm -C packages/frontend run dev",
     "dev:server": "npm -C packages/server run dev",
-
     "start:server": "npm -C packages/server run start",
     "start:client": "npm -C packages/frontend run bands",
-
     "build:client": "npm -C packages/frontend run build",
     "build:server": "npm -C packages/server run build",
-
     "build:genapi": "npm -C packages/frontend genapi",
     "build:analys": "npm -C packages/analyzkit run build",
     "build:sols": "npm -C packages/solidity run build",
-
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-
     "start:testnet": "npm run start:server",
     "start:mainnet": "npm run start:server",
-
     "postinstall": "nr build:sols & nr build:analys"
   },
   "devDependencies": {
