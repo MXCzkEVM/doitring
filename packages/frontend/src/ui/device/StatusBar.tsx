@@ -91,9 +91,9 @@ export function StatusBar() {
 }
 
 function QuantityOfElectricity() {
-  const [{ value: level }, fetchLevel] = useProxyBluetoothCommand('readLevel')
+  const [{ value: level }, fetchLevel] = useProxyBluetoothCommand('readLevel', { cache: true })
   const [{ value: { bluetooth } }, fetchBluetooth] = useProxyBluetooth()
-  const [{}, writeTime] = useProxyBluetoothCommand('writeTime')
+  const [{ }, writeTime] = useProxyBluetoothCommand('writeTime')
 
   useWhenever(bluetooth, async () => {
     await writeTime(dayjs().format())

@@ -1,3 +1,4 @@
+import { useMount } from 'react-use'
 import { FunctionReturningPromise, PromiseType } from 'react-use/lib/misc/types'
 import { proxy, useSnapshot } from 'valtio'
 
@@ -10,10 +11,12 @@ interface AsyncFnCall<V = any> {
 
 export const caches = proxy<Record<string, AsyncFnCall>>({})
 
-export function useProxyAsyncFn<T extends FunctionReturningPromise>(key: string, fn: T) {
+export interface UseProxyAsyncFnOptions {
+  cache?: boolean
+}
+
+export function useProxyAsyncFn<T extends FunctionReturningPromise>(key: string, fn: T, options: UseProxyAsyncFnOptions = {}) {
   const snapshot = useSnapshot(caches)
-  if (!snapshot[key])
-    caches[key] = { loading: false, value: undefined }
 
   function run(...args: any[]) {
     const cache = caches[key]
@@ -24,7 +27,11 @@ export function useProxyAsyncFn<T extends FunctionReturningPromise>(key: string,
       cache.loading = true
       cache.promise = result
       result
-        .then(value => cache.value = value)
+        .then((value) => {
+          // eslint-disable-next-line ts/no-unused-expressions
+          options.cache && localStorage.setItem(key, value)
+          cache.value = value
+        })
         .catch(error => cache.error = error)
         .finally(() => cache.loading = false)
     }
@@ -36,6 +43,15 @@ export function useProxyAsyncFn<T extends FunctionReturningPromise>(key: string,
     return cache.promise
   }
 
+  useMount(() => {
+    if (snapshot[key])
+      return
+    caches[key] = {
+      value: options.cache ? localStorage.getItem(key) : undefined,
+      loading: false,
+      error: undefined,
+    }
+  })
   return [caches[key] as AsyncFnCall<PromiseType<ReturnType<T>>>, run as T] as const
 }
 

@@ -1,6 +1,7 @@
 /* eslint-disable ts/ban-ts-comment */
 import { useSnapshot } from 'valtio'
 import { useRef } from 'react'
+import { useMount } from 'react-use'
 import { useProxyAsyncFn } from '../useProxyAsyncFn'
 import { Commands, Resolves } from './config'
 import { useWriteWithResponse } from './hooks'
@@ -14,6 +15,7 @@ type FnReplRT<Fn extends FnAny, Rt> =
 
 export interface UseProxyBluetoothCommandOptions {
   until?: boolean
+  cache?: boolean
 }
 
 export function useProxyBluetoothCommand<Command extends CommandsKeys>(
@@ -53,8 +55,10 @@ export function useProxyBluetoothCommand<Command extends CommandsKeys>(
         }
         return data
       }
-      return call()
+      const value = await call()
+      return value
     },
+    { cache: options.cache },
   )
 
   const execute: typeof callback = (...args: any) => {
@@ -65,7 +69,6 @@ export function useProxyBluetoothCommand<Command extends CommandsKeys>(
   }
 
   whenever(!locked, () => promise.current = undefined)
-
   return [
     state,
     execute,
