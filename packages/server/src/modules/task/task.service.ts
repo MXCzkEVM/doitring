@@ -1,9 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { Cron, Interval } from '@nestjs/schedule'
 import { cyan, gray, reset } from 'chalk'
-import dayjs from 'dayjs'
-import { $ } from 'zx'
-import fs from 'fs-extra'
+
 import { EthersService, PrismaService } from '../common'
 import { EventsService } from '../events'
 import { EstimateService } from '../estimate'
@@ -42,7 +40,6 @@ export class TaskService {
       clearTimeout(timer)
     }
   }
-
 
   @Cron('0 0 * * *')
   async processDoitRingScore() {

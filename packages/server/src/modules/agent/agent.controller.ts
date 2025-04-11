@@ -1,6 +1,6 @@
 import { Body, Controller, Logger, Post } from '@nestjs/common'
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { defaultAddresses as addresses, signer } from '@harsta/client'
+import { signer } from '@harsta/client'
 import { bold, gray, reset } from 'chalk'
 import { verifyMessage } from 'ethers'
 import {
@@ -10,10 +10,6 @@ import {
   AgentTransactionResponse,
 } from './dtos'
 import { generateMessage, parseMessage } from './utils'
-
-const addressesMapping: Record<string, string> = {}
-for (const key in Object.keys(addresses))
-  addressesMapping[addresses[key]] = key
 
 @ApiTags('Agent')
 @Controller('agent')

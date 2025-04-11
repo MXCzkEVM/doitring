@@ -6,7 +6,6 @@ import BigNumber from 'bignumber.js'
 import { FetchRequest } from 'ethers'
 import { ProxyOptions, httpsOverHttp } from 'tunnel'
 import { bold, gray } from 'chalk'
-import { ENV_MODE_PATHS } from 'src/config'
 
 export function withNestjsRepairDecimal(_app: INestApplication) {
   Object.defineProperty(Decimal.prototype, 'toString', {
@@ -45,12 +44,10 @@ export function withNestjsListen(app: INestApplication, port: string | number) {
   })
 }
 
-export function withEthersHttpProxy(options: ProxyOptions) {
+export function withEthersHttpProxy(request: typeof FetchRequest, options: ProxyOptions) {
   const agent = httpsOverHttp({ proxy: options })
 
   // register as an ethers agent
-  const fetchRequest = FetchRequest.createGetUrlFunc({ agent })
-  FetchRequest.registerGetUrl(fetchRequest)
-
-  // register as an global agent
+  const fetchRequest = request.createGetUrlFunc({ agent })
+  request.registerGetUrl(fetchRequest)
 }
