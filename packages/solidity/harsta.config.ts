@@ -20,14 +20,14 @@ const currency: Currency = {
 
 const config = defineConfig({
   solidity: '0.8.24',
-  defaultNetwork: 'geneva',
+  defaultNetwork: 'moonchain_geneva',
   namedAccounts: {
     deployer: { default: 0 },
     owner: { default: 0 },
     verifier: { default: 1 },
   },
   networks: {
-    geneva: {
+    moonchain_geneva: {
       name: 'Moonchain',
       rpc: 'https://geneva-rpc.moonchain.com',
       testnet: true,

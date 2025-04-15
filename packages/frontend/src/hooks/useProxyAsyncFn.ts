@@ -17,6 +17,8 @@ export interface UseProxyAsyncFnOptions {
 
 export function useProxyAsyncFn<T extends FunctionReturningPromise>(key: string, fn: T, options: UseProxyAsyncFnOptions = {}) {
   const snapshot = useSnapshot(caches)
+  if (!snapshot[key])
+    caches[key] = { loading: false, value: undefined }
 
   function run(...args: any[]) {
     const cache = caches[key]
