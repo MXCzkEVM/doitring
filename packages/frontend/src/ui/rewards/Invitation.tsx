@@ -54,7 +54,7 @@ export function Invitation() {
           {t('Boost Invitation Text')}
         </div>
         <div className="flex-col-center gap-2">
-          <div className="text-16px">Your Website URLs</div>
+          <div className="text-16px">Your Invitation Link</div>
           <QRCode size={120} value={address!} />
           <Button
             onClick={() =>
