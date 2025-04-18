@@ -9,7 +9,7 @@ import { useOverlayInject } from '@overlastic/react'
 import { contracts } from '@harsta/client'
 import { compress, formatEtherByFormat, waitForProxyTransaction } from '@/utils'
 import { store } from '@/store'
-import { useProxyBluetooth, useProxyBluetoothCommand, useProxyMinerDetail } from '@/hooks'
+import { useProxyBluetooth, useProxyBluetoothCommand, useProxyMinerDetail, useProxyUser } from '@/hooks'
 import { Card, EpochRewardDialog, SynchronizedDialog, SyncingDialog } from '@/components'
 import { getSignClaim, postSignClaimCount } from '@/api'
 import { useRequestIntel } from '@/hooks/useRequestIntel'
@@ -20,6 +20,13 @@ export function ClaimSteps() {
 
   const [miner] = storeToState(store.miner, 'miner')
   const [mints, setMints] = storeToState(store.config, 'mints')
+  const [{ value: user }] = useProxyUser()
+
+  const indexing = useMemo(() => {
+    if (!user)
+      return true
+    return !dayjs(user.updateAt).isSame(dayjs(), 'day')
+  }, [user])
 
   const [{ value: detail }, fetchMinerDetail] = useProxyMinerDetail()
   const [{ value: intel }, reloadIntel] = useRequestIntel()
@@ -179,13 +186,14 @@ export function ClaimSteps() {
           </div>
           <div className="flex items-center gap-2">
             <Button
-              disabled={intel?.claims === intel?.claimed}
-              loading={loadingByClaim}
+              disabled={intel?.claims === intel?.claimed || indexing}
+              loading={loadingByClaim || indexing}
               onClick={onSyncClaim}
               type="primary"
               size="small"
             >
-              Sync & Claim
+              {indexing ? 'Indexing...' : `Sync & Claim`}
+
             </Button>
           </div>
         </div>
