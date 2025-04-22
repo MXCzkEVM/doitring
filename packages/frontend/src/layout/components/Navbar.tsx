@@ -6,7 +6,8 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { useOverlayInject } from '@overlastic/react'
-import { Badge, Button, Tag } from 'antd'
+import { Button as AntButton, Badge, Tag } from 'antd'
+import { Button } from 'antd-mobile'
 import { ButtonWithRegisterRing, JournalismDialog, UserInfo } from '@/components'
 import { useProxyMiner, useProxyMinerDetail, useProxyUser } from '@/hooks'
 import { store } from '@/store'
@@ -87,20 +88,46 @@ function Navbar(props: NavbarProps) {
           <If cond={props.right !== false}>
             <div className="connect_button_warp flex-shrink-0">
               <If cond={isConnected && !isLoading}>
-                <ConnectButton
-                  accountStatus={miner?.nickname ? 'address' : 'avatar'}
-                  chainStatus={{ smallScreen: 'none' }}
-                />
+                <ConnectButton.Custom>
+                  {({
+                    chain,
+                    openChainModal,
+                  }) => {
+                    if (chain?.unsupported) {
+                      return (
+                        <>
+                          <div className="hidden sm:block">
+                            <ConnectButton chainStatus={{ smallScreen: 'icon' }} />
+                          </div>
+                          <div className="sm:hidden">
+                            <Button size="mini" onClick={openChainModal} color="danger">
+                              <div className="flex items-center gap-1">
+                                <span>Network</span>
+                                <div className="i-material-symbols-error-circle-rounded inline-block text-sm" />
+                              </div>
+                            </Button>
+                          </div>
+                        </>
+                      )
+                    }
+                    return (
+                      <ConnectButton
+                        accountStatus={miner?.nickname ? 'address' : 'avatar'}
+                        chainStatus={{ smallScreen: 'none' }}
+                      />
+                    )
+                  }}
+                </ConnectButton.Custom>
               </If>
               <If cond={!isConnected || isLoading}>
-                <Button
+                <AntButton
                   loading={isLoading}
                   type="primary"
                   shape="round"
                   onClick={openConnectModal}
                 >
                   {!isLoading && 'Connect Wallet'}
-                </Button>
+                </AntButton>
               </If>
             </div>
             <If cond={isConnected && props.register !== false && !miner}>

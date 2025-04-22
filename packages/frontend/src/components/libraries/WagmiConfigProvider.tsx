@@ -1,5 +1,5 @@
 import type { WagmiProviderProps } from 'wagmi'
-import { WagmiProvider, useClient, useConnectorClient } from 'wagmi'
+import { WagmiProvider } from 'wagmi'
 import type { PropsWithChildren } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { WagmiConfigSubscribe } from './WagmiConfigSubscribe'
