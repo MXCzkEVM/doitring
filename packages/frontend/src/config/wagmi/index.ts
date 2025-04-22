@@ -45,7 +45,7 @@ export const connectors = connectorsForWallets(
 // @ts-expect-error
 export const config = createConfig({
   connectors,
-  chains: process.env.NEXT_PUBLIC_DEFAULT_CHAIN === 'geneva'
+  chains: process.env.NEXT_PUBLIC_DEFAULT_CHAIN === 'moonchain_geneva'
     ? [chains.moonchain_geneva]
     : [chains.moonchain],
   ssr: true,
